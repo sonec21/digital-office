@@ -1,0 +1,6 @@
+[
+  { "id": "team-001", "name": "Sarah Johnson", "role": "Lead Developer", "email": "sarah@company.com", "status": "active", "avatar": "SJ" },
+  { "id": "team-002", "name": "Mike Chen", "role": "Product Manager", "email": "mike@company.com", "status": "active", "avatar": "MC" },
+  { "id": "team-003", "name": "Emily Davis", "role": "Designer", "email": "emily@company.com", "status": "active", "avatar": "ED" },
+  { "id": "team-004", "name": "Tom Wilson", "role": "Sales Rep", "email": "tom@company.com", "status": "away", "avatar": "TW" }
+]

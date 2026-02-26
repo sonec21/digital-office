@@ -1,0 +1,6 @@
+[
+  { "id": "tr-001", "title": "Getting Started with Digital Office", "status": "completed", "progress": 100, "duration": "15 min" },
+  { "id": "tr-002", "title": "Managing Leads Effectively", "status": "in_progress", "progress": 60, "duration": "30 min" },
+  { "id": "tr-003", "title": "Using the Pipeline View", "status": "not_started", "progress": 0, "duration": "20 min" },
+  { "id": "tr-004", "title": "Setting up Automations", "status": "not_started", "progress": 0, "duration": "25 min" }
+]
