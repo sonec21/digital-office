@@ -1,0 +1,5 @@
+[
+  { "id": "conv-001", "contact": "John Smith", "source": "Website", "last_message": "Thanks for reaching out!", "timestamp": "2026-02-26T10:30:00Z", "unread": true },
+  { "id": "conv-002", "contact": "Sarah Johnson", "source": "Email", "last_message": "Let's schedule a call", "timestamp": "2026-02-26T09:15:00Z", "unread": false },
+  { "id": "conv-003", "contact": "Mike Chen", "source": "Chat", "last_message": "The demo went great!", "timestamp": "2026-02-25T16:45:00Z", "unread": false }
+]

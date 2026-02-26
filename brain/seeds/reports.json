@@ -1,0 +1,5 @@
+[
+  { "id": "rep-001", "title": "Q1 2026 Sales Report", "type": "sales", "date": "2026-03-31", "status": "scheduled" },
+  { "id": "rep-002", "title": "February Pipeline Analysis", "type": "pipeline", "date": "2026-02-28", "status": "ready" },
+  { "id": "rep-003", "title": "Team Performance Q1", "type": "team", "date": "2026-03-31", "status": "scheduled" }
+]

@@ -1,0 +1,7 @@
+[
+  { "id": "auto-001", "name": "New Lead Welcome", "trigger": "lead.created", "action": "send_email", "status": "active", "last_run": "2026-02-25T14:30:00Z" },
+  { "id": "auto-002", "name": "Follow-up Reminder", "trigger": "lead.no_contact_7days", "action": "create_task", "status": "active", "last_run": "2026-02-24T09:00:00Z" },
+  { "id": "auto-003", "name": "Meeting Confirmation", "trigger": "appointment.scheduled", "action": "send_email", "status": "active", "last_run": "2026-02-23T16:45:00Z" },
+  { "id": "auto-004", "name": "Deal Stage Alert", "trigger": "deal.stage_changed", "action": "notify_slack", "status": "paused", "last_run": null },
+  { "id": "auto-005", "name": "Weekly Report", "trigger": "cron.weekly", "action": "send_summary", "status": "active", "last_run": "2026-02-24T08:00:00Z" }
+]

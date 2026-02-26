@@ -1,0 +1,7 @@
+[
+  { "id": "evt-001", "title": "Demo with Acme Corp", "type": "demo", "date": "2026-02-28", "time": "10:00", "duration": 60, "attendees": "john@acme.com", "status": "confirmed" },
+  { "id": "evt-002", "title": "Team Standup", "type": "internal", "date": "2026-02-26", "time": "09:00", "duration": 15, "attendees": "team@company.com", "status": "confirmed" },
+  { "id": "evt-003", "title": "Strategy Review", "type": "meeting", "date": "2026-02-27", "time": "14:00", "duration": 60, "attendees": "leadership@company.com", "status": "confirmed" },
+  { "id": "evt-004", "title": "Onboarding Call", "type": "onboarding", "date": "2026-03-01", "time": "11:00", "duration": 45, "attendees": "newclient@company.com", "status": "pending" },
+  { "id": "evt-005", "title": "Q1 Planning", "type": "meeting", "date": "2026-03-05", "time": "13:00", "duration": 120, "attendees": "management@company.com", "status": "pending" }
+]

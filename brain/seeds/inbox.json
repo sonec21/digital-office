@@ -1,0 +1,56 @@
+{
+  "approvals": [
+    {
+      "id": "apr-001",
+      "title": "Approve Q1 budget increase",
+      "risk": "low",
+      "requested_by": "Sarah Johnson",
+      "related_type": "budget",
+      "related_id": "budget-001",
+      "created_at": "2026-02-26T09:00:00Z"
+    },
+    {
+      "id": "apr-002",
+      "title": "New vendor contract - CloudHost",
+      "risk": "medium",
+      "requested_by": "Mike Chen",
+      "related_type": "vendor",
+      "related_id": "vendor-002",
+      "created_at": "2026-02-25T14:30:00Z"
+    }
+  ],
+  "stalled": [
+    {
+      "id": "stl-001",
+      "title": "Client feedback pending",
+      "reason": "Waiting on client response for 5 days",
+      "related_type": "lead",
+      "related_id": "lead-001",
+      "last_activity_at": "2026-02-21T10:00:00Z"
+    },
+    {
+      "id": "stl-002",
+      "title": "Legal review pending",
+      "reason": "Legal team has had this for 3 days",
+      "related_type": "project",
+      "related_id": "proj-002",
+      "last_activity_at": "2026-02-23T16:00:00Z"
+    }
+  ],
+  "errors": [
+    {
+      "id": "err-001",
+      "title": "Payment webhook failed",
+      "severity": "high",
+      "source": "stripe",
+      "created_at": "2026-02-26T08:45:00Z"
+    },
+    {
+      "id": "err-002",
+      "title": "Email delivery failed - client@company.com",
+      "severity": "low",
+      "source": "sendgrid",
+      "created_at": "2026-02-26T07:30:00Z"
+    }
+  ]
+}
