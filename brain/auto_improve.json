@@ -1,0 +1,22 @@
+{
+  "enabled": false,
+  "interval_minutes": 30,
+  "max_items_per_run": 3,
+  "min_priority": "medium",
+  "branch_prefix": "auto/fix",
+  "allowlist_paths": [
+    "src/app/office/",
+    "brain/seeds/",
+    "README_OFFICE.md"
+  ],
+  "denylist_paths": [
+    ".env",
+    "caddy",
+    "deploy",
+    "infra",
+    "auth",
+    "secrets"
+  ],
+  "auto_merge": false,
+  "kill_switch_env": "AUTO_IMPROVE_ENABLED"
+}
