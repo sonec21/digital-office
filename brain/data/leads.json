@@ -1,5 +1,17 @@
 [
   {
+    "id": "lead-1772129548726",
+    "name": "E2E Lead",
+    "contact": "Test",
+    "email": "t@test.com",
+    "phone": "+1 555-0000",
+    "source": "Website",
+    "status": "new",
+    "value": 3000,
+    "created_at": "2026-02-26T18:12:28.726Z",
+    "notes": ""
+  },
+  {
     "id": "lead-1772129214408",
     "name": "Public URL Test",
     "contact": "Public User",
