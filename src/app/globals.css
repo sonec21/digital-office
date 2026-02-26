@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: #0f172a;
+}
