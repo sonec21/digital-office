@@ -1,5 +1,12 @@
 # Governance Rules (Chain-of-Command Enforcement)
 
+## Production Safety (Hard Rules)
+
+1. **Never develop on main** - All development must happen on feature branches
+2. **Always run preflight_change before edits** - Run `scripts/preflight_change.sh <branch-name>` to create a snapshot and rollback point before any code changes
+3. **Only merge when build + smoke tests pass** - Verify `pnpm build` succeeds and `curl -I http://127.0.0.1:3000/office` returns 200 before merging
+4. **If prod breaks, run rollback_prod.sh** - Use `bash scripts/rollback_prod.sh` to restore to the last known-good state (prod-stable tag)
+
 ## Branching Workflow (Required)
 
 All changes must follow this process:
