@@ -1,0 +1,38 @@
+[
+  {
+    "id": "team-1772137356548",
+    "name": "QA Test Member",
+    "email": "qa@test.com",
+    "role": "Manager",
+    "status": "active",
+    "created_at": "2026-02-26T20:22:36.548Z",
+    "notes": "updated by QA test"
+  },
+  {
+    "id": "team-001",
+    "name": "Sarah Mitchell",
+    "email": "sarah@company.com",
+    "role": "Receptionist",
+    "status": "active",
+    "created_at": "2026-01-15T09:00:00Z",
+    "notes": "Front desk and initial contact"
+  },
+  {
+    "id": "team-002",
+    "name": "Mike Johnson",
+    "email": "mike@company.com",
+    "role": "Sales Rep",
+    "status": "active",
+    "created_at": "2026-01-20T10:30:00Z",
+    "notes": "Handles inbound leads"
+  },
+  {
+    "id": "team-003",
+    "name": "Lisa Chen",
+    "email": "lisa@company.com",
+    "role": "Manager",
+    "status": "active",
+    "created_at": "2026-01-10T08:00:00Z",
+    "notes": "Operations manager"
+  }
+]
