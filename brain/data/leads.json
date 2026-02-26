@@ -1,0 +1,74 @@
+[
+  {
+    "id": "lead-1772128262377",
+    "name": "Test Company E2E",
+    "contact": "Jane Doe",
+    "email": "jane@testco.com",
+    "phone": "+1 555-9999",
+    "source": "Website",
+    "status": "new",
+    "value": 8500,
+    "created_at": "2026-02-26T17:51:02.377Z",
+    "notes": "E2E test lead"
+  },
+  {
+    "id": "lead-001",
+    "name": "Acme Corporation",
+    "contact": "John Smith",
+    "email": "john@acme.com",
+    "phone": "+1 555-0101",
+    "source": "Website",
+    "status": "new",
+    "value": 15000,
+    "created_at": "2026-02-20T10:00:00Z",
+    "notes": "Interested in enterprise plan"
+  },
+  {
+    "id": "lead-002",
+    "name": "TechStart Inc",
+    "contact": "Sarah Johnson",
+    "email": "sarah@techstart.io",
+    "phone": "+1 555-0102",
+    "source": "Referral",
+    "status": "contacted",
+    "value": 8500,
+    "created_at": "2026-02-18T14:30:00Z",
+    "notes": "Follow up next week"
+  },
+  {
+    "id": "lead-003",
+    "name": "Global Dynamics",
+    "contact": "Michael Chen",
+    "email": "m.chen@globaldyn.com",
+    "phone": "+1 555-0103",
+    "source": "LinkedIn",
+    "status": "scheduled",
+    "value": 25000,
+    "created_at": "2026-02-15T09:15:00Z",
+    "notes": "Demo scheduled for Feb 28"
+  },
+  {
+    "id": "lead-004",
+    "name": "Startup Labs",
+    "contact": "Emily Davis",
+    "email": "emily@startuplabs.co",
+    "phone": "+1 555-0104",
+    "source": "Conference",
+    "status": "won",
+    "value": 12000,
+    "created_at": "2026-02-10T11:00:00Z",
+    "notes": "Closed!"
+  },
+  {
+    "id": "lead-005",
+    "name": "Old Town Coffee",
+    "contact": "Bob Wilson",
+    "email": "bob@oldtowncoffee.com",
+    "phone": "+1 555-0105",
+    "source": "Walk-in",
+    "status": "lost",
+    "value": 2000,
+    "created_at": "2026-02-05T16:00:00Z",
+    "notes": "Not a fit - too small"
+  }
+]
