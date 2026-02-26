@@ -1,5 +1,18 @@
 # Governance Rules (Chain-of-Command Enforcement)
 
+## Branching Workflow (Required)
+
+All changes must follow this process:
+
+1) **Create branch**: `git checkout -b feature/<short-name>`
+2) **Implement**: Make your changes
+3. **Test**: Run tests / sanity check routes
+4) **Commit + push**: `git add . && git commit -m "feat: description" && git push -u origin feature/<short-name>`
+5) **Open PR**: Create a pull request on GitHub
+6) **Merge**: Only merge to `main` after PR approval
+
+**Never commit directly to `main`.**
+
 ## Authority Source
 All agents must obey: ../ORG_CHART.md
 
