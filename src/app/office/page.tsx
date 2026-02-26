@@ -1,56 +1,106 @@
+import Link from 'next/link';
+
 export default function Dashboard() {
+  const stats = [
+    { label: 'Total Leads', value: '5', trend: '+20%', icon: '🎯', color: 'blue' },
+    { label: 'Active Deals', value: '3', trend: '+15%', icon: '🔄', color: 'violet' },
+    { label: 'Projects', value: '5', trend: '+10%', icon: '📁', color: 'emerald' },
+    { label: 'Tasks', value: '12', trend: '+5%', icon: '📋', color: 'amber' },
+  ];
+
   return (
     <>
-      <header className="bg-white border-b border-gray-200 px-8 py-6">
-        <h2 className="text-2xl font-bold text-gray-900">Dashboard</h2>
-        <p className="text-gray-500 mt-1">Welcome to your Digital Office</p>
+      {/* Header */}
+      <header className="bg-white border-b border-slate-200 px-8 py-6">
+        <h2 className="text-2xl font-bold text-slate-900">Dashboard</h2>
+        <p className="text-sm text-slate-500 mt-1">Welcome back! Here's what's happening today.</p>
       </header>
 
       <div className="p-8">
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {[
-            { label: 'Total Leads', value: '0', trend: '+0%', icon: '🎯' },
-            { label: 'Active Conversations', value: '0', trend: '+0%', icon: '💬' },
-            { label: 'Pending Appointments', value: '0', trend: '+0%', icon: '📅' },
-            { label: 'Running Agents', value: '0', trend: '+0%', icon: '🤖' },
-          ].map((stat) => (
-            <div key={stat.label} className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-3xl">{stat.icon}</span>
-                <span className="text-sm text-green-600 font-medium">{stat.trend}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+          {stats.map((stat) => (
+            <div key={stat.label} className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-2xl">{stat.icon}</span>
+                <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                  {stat.trend}
+                </span>
               </div>
-              <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-              <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
+              <p className="text-3xl font-bold text-slate-900">{stat.value}</p>
+              <p className="text-sm text-slate-500 mt-1">{stat.label}</p>
             </div>
           ))}
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm mb-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-          <div className="flex gap-4">
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+        <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm mb-8">
+          <h3 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h3>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/office/leads" className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
               + New Lead
-            </button>
-            <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-              + New Appointment
-            </button>
-            <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            </Link>
+            <Link href="/office/calendar" className="px-4 py-2 bg-white border border-slate-300 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 transition-colors">
+              + New Event
+            </Link>
+            <Link href="/office/tasks" className="px-4 py-2 bg-white border border-slate-300 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 transition-colors">
               + New Task
-            </button>
+            </Link>
+            <Link href="/office/projects" className="px-4 py-2 bg-white border border-slate-300 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 transition-colors">
+              + New Project
+            </Link>
           </div>
         </div>
 
-        {/* Recent Activity */}
+        {/* Recent Activity Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Leads</h3>
-            <p className="text-gray-500 text-sm">No leads yet</p>
+          {/* Recent Leads */}
+          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-slate-900">Recent Leads</h3>
+              <Link href="/office/leads" className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                View all →
+              </Link>
+            </div>
+            <div className="space-y-3">
+              {[
+                { name: 'Acme Corporation', status: 'new', value: '$15,000' },
+                { name: 'TechStart Inc', status: 'contacted', value: '$8,500' },
+                { name: 'Global Dynamics', status: 'scheduled', value: '$25,000' },
+              ].map((lead, i) => (
+                <div key={i} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
+                  <div>
+                    <p className="font-medium text-slate-900">{lead.name}</p>
+                    <p className="text-xs text-slate-500">{lead.status}</p>
+                  </div>
+                  <span className="font-semibold text-slate-900">{lead.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Upcoming Appointments</h3>
-            <p className="text-gray-500 text-sm">No appointments scheduled</p>
+
+          {/* Upcoming Events */}
+          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-slate-900">Upcoming Events</h3>
+              <Link href="/office/calendar" className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                View all →
+              </Link>
+            </div>
+            <div className="space-y-3">
+              {[
+                { title: 'Demo with Acme Corp', date: 'Feb 28', time: '10:00' },
+                { title: 'Team Standup', date: 'Today', time: '09:00' },
+                { title: 'Strategy Review', date: 'Feb 27', time: '14:00' },
+              ].map((event, i) => (
+                <div key={i} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
+                  <div>
+                    <p className="font-medium text-slate-900">{event.title}</p>
+                    <p className="text-xs text-slate-500">{event.date} at {event.time}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
