@@ -1,5 +1,17 @@
 [
   {
+    "id": "lead-1772129214408",
+    "name": "Public URL Test",
+    "contact": "Public User",
+    "email": "public@test.com",
+    "phone": "+1 555-9999",
+    "source": "Website",
+    "status": "new",
+    "value": 7500,
+    "created_at": "2026-02-26T18:06:54.408Z",
+    "notes": "E2E via public URL"
+  },
+  {
     "id": "lead-1772128262377",
     "name": "Test Company E2E",
     "contact": "Jane Doe",

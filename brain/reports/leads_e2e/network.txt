@@ -1,0 +1,33 @@
+=== Leads E2E Test Evidence ===
+
+Date: 2026-02-26
+
+TEST 1: GET /bff/leads via public URL
+------------------------------------
+URL: https://office.chatobot.cloud/bff/leads
+Method: GET
+Status: 200
+Response: JSON array with leads
+
+TEST 2: POST /bff/leads via public URL  
+------------------------------------
+URL: https://office.chatobot.cloud/bff/leads
+Method: POST
+Status: 201 Created
+Payload: {"name":"Public URL Test","contact":"Public User","email":"public@test.com","phone":"+1 555-9999","source":"Website","status":"new","value":"7500","notes":"E2E via public URL"}
+Response: {"id":"lead-1772129214408","name":"Public URL Test",...}
+
+TEST 3: Persistence verification
+-------------------------------
+- New lead appears in GET response after POST
+- Data persisted in brain/data/leads.json
+- Leads count: 7 (5 original + 2 test)
+
+Console Errors: None
+Network Errors: None
+
+FIX APPLIED:
+- Created /leads route (not /bff/leads) because Caddy strips /bff prefix
+- Updated UI to call /leads
+- POST returns 201 via public URL
+- Data persists to brain/data/leads.json

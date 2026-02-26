@@ -38,7 +38,7 @@ export default function LeadsPage() {
 
   const fetchLeads = async () => {
     try {
-      const res = await fetch('/api/leads');
+      const res = await fetch('/leads');
       const data = await res.json();
       setLeads(data);
     } catch (error) {
@@ -53,7 +53,7 @@ export default function LeadsPage() {
     setSubmitting(true);
 
     try {
-      const res = await fetch('/api/leads', {
+      const res = await fetch('/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
