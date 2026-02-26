@@ -1,11 +1,14 @@
+'use client';
+
 import Link from 'next/link';
+import { Target, GitMerge, FolderKanban, CheckSquare, Users, Calendar, TrendingUp } from 'lucide-react';
 
 export default function Dashboard() {
   const stats = [
-    { label: 'Total Leads', value: '5', trend: '+20%', icon: '🎯', color: 'blue' },
-    { label: 'Active Deals', value: '3', trend: '+15%', icon: '🔄', color: 'violet' },
-    { label: 'Projects', value: '5', trend: '+10%', icon: '📁', color: 'emerald' },
-    { label: 'Tasks', value: '12', trend: '+5%', icon: '📋', color: 'amber' },
+    { label: 'Total Leads', value: '5', trend: '+20%', icon: Target, color: 'blue' },
+    { label: 'Active Deals', value: '3', trend: '+15%', icon: GitMerge, color: 'violet' },
+    { label: 'Projects', value: '5', trend: '+10%', icon: FolderKanban, color: 'emerald' },
+    { label: 'Tasks', value: '12', trend: '+5%', icon: CheckSquare, color: 'amber' },
   ];
 
   return (
@@ -19,18 +22,23 @@ export default function Dashboard() {
       <div className="p-8">
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-          {stats.map((stat) => (
-            <div key={stat.label} className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-2xl">{stat.icon}</span>
-                <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
-                  {stat.trend}
-                </span>
+          {stats.map((stat) => {
+            const Icon = stat.icon;
+            return (
+              <div key={stat.label} className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`w-10 h-10 rounded-lg bg-${stat.color}-50 flex items-center justify-center`}>
+                    <Icon className={`w-5 h-5 text-${stat.color}-600`} />
+                  </div>
+                  <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                    {stat.trend}
+                  </span>
+                </div>
+                <p className="text-3xl font-bold text-slate-900">{stat.value}</p>
+                <p className="text-sm text-slate-500 mt-1">{stat.label}</p>
               </div>
-              <p className="text-3xl font-bold text-slate-900">{stat.value}</p>
-              <p className="text-sm text-slate-500 mt-1">{stat.label}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Quick Actions */}
