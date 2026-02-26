@@ -1,0 +1,17 @@
+{
+  "stages": [
+    { "id": "new", "name": "New", "order": 1 },
+    { "id": "contacted", "name": "Contacted", "order": 2 },
+    { "id": "scheduled", "name": "Demo Scheduled", "order": 3 },
+    { "id": "proposal", "name": "Proposal Sent", "order": 4 },
+    { "id": "won", "name": "Won", "order": 5 },
+    { "id": "lost", "name": "Lost", "order": 6 }
+  ],
+  "deals": [
+    { "id": "deal-001", "name": "Acme Corp Enterprise", "value": 15000, "stage": "new", "lead_id": "lead-001" },
+    { "id": "deal-002", "name": "TechStart Growth", "value": 8500, "stage": "contacted", "lead_id": "lead-002" },
+    { "id": "deal-003", "name": "Global Dynamics Full Suite", "value": 25000, "stage": "scheduled", "lead_id": "lead-003" },
+    { "id": "deal-004", "name": "Startup Labs Starter", "value": 12000, "stage": "won", "lead_id": "lead-004" },
+    { "id": "deal-005", "name": "Old Town Coffee Basic", "value": 2000, "stage": "lost", "lead_id": "lead-005" }
+  ]
+}
