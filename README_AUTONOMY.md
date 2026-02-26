@@ -1,125 +1,110 @@
 # Autonomous Improvement System
 
-Automated self-improvement system for Digital Office that turns learnings into fixes and PRs.
-
-## Overview
-
-The system monitors learnings/errors captured by the self-improving-agent skill and automatically creates improvements on a schedule.
+Automated self-improvement for Digital Office that turns learnings into PRs.
 
 ## Quick Start
 
-### Enable Autonomous Improvements
-
+### Enable
 ```bash
 export AUTO_IMPROVE_ENABLED=true
 ```
 
 ### Disable
-
 ```bash
 export AUTO_IMPROVE_ENABLED=false
 ```
 
 ## How It Works
 
-1. **Learnings Captured** → Errors/lessons logged to `~/.openclaw/workspace/.learnings/`
-2. **Scheduler Runs** → Every 30 minutes (configurable)
-3. **Select Items** → Picks pending items with priority >= medium
-4. **Create Branch** → `auto/fix/LRN-XXX`
-5. **Implement Fix** → Code changes + tests
-6. **Open PR** → For human review
+1. **Log Learnings** → Add entries to `.learnings/LEARNINGS.md`
+2. **Scheduler Runs** → Every 30 minutes (or manual)
+3. **Selects Items** → Picks highest priority pending items
+4. **Creates Branch** → `auto/improve/LRN-XXX`
+5. **Opens PR** → For human review
+
+## Adding Learnings
+
+Edit `.learnings/LEARNINGS.md`:
+
+```markdown
+| ID | Date | Priority | Status | Area | Description | Suggested Fix | Links |
+|----|------|----------|--------|------|-------------|--------------|-------|
+| LRN-003 | 2026-02-26 | high | pending | UI | Fix button color | Use bg-blue-600 | - |
+```
+
+Priority levels: low, medium, high, critical
+
+## Selecting Items
+
+The runner selects items based on:
+- Status: must be `pending`
+- Priority: must be >= `min_priority` (default: medium)
+- Max: 1 per run (configurable)
+
+## Reviewing PRs
+
+1. Visit: https://github.com/sonec21/digital-office/pulls
+2. Look for branches: `auto/improve/*`
+3. Review changes
+4. Merge or comment
 
 ## Configuration
 
 Edit `brain/auto_improve.json`:
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| `enabled` | Master on/off | false |
-| `interval_minutes` | Run frequency | 30 |
-| `max_items_per_run` | Max improvements per run | 3 |
-| `min_priority` | Minimum priority to process | medium |
-| `branch_prefix` | Branch naming | auto/fix |
-| `auto_merge` | Auto-merge PRs (dangerous!) | false |
-
-## Allowlist/Denylist
-
-Only changes to these paths are allowed:
-- `src/app/office/`
-- `brain/seeds/`
-- `README_OFFICE.md`
-
-Changes to these are blocked:
-- `.env`, `caddy`, `deploy`, `infra`, `auth`, `secrets`
-
-## Inspecting Learnings
-
-View pending improvements:
-
-```bash
-# All learnings
-cat ~/.openclaw/workspace/.learnings/LEARNINGS.md
-
-# Errors
-cat ~/.openclaw/workspace/.learnings/ERRORS.md
-
-# Feature requests
-cat ~/.openclaw/workspace/.learnings/FEATURE_REQUESTS.md
-```
-
-## Reviewing PRs
-
-1. Check GitHub: https://github.com/sonec21/digital-office/pulls
-2. Look for branches starting with `auto/fix/`
-3. Review changes
-4. Merge or comment
-
-## Changing Thresholds
-
-To require higher priority before auto-fixing:
-
-```bash
-# Edit config
-nano brain/auto_improve.json
-# Change "min_priority": "medium" to "high"
-```
-
-Priority levels: low, medium, high, critical
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `enabled` | true | Master on/off |
+| `interval_minutes` | 30 | Run frequency |
+| `max_items_per_run` | 1 | Items per run |
+| `min_priority` | medium | Minimum priority |
+| `branch_prefix` | auto/improve | Branch naming |
 
 ## Safety
 
-- ❌ Never modifies main directly
+- ✅ Never commits directly to main
 - ✅ Creates branches for all changes
 - ✅ Opens PRs for human review
-- ✅ Respects denylist (no auth/secrets)
+- ✅ Respects denylist (no infra/auth)
 - ✅ Kill switch: `AUTO_IMPROVE_ENABLED=false`
+
+## Allowlist/Denylist
+
+Only changes to these paths allowed:
+- `src/app/office/`
+- `brain/`
+- `README_OFFICE.md`
+- `.learnings/`
+
+Blocked:
+- `.env`, `caddy`, `infra`, `deploy`, `systemd`, `auth`, `secrets`
 
 ## Manual Run
 
 ```bash
 cd /root/.openclaw/workspace/digital-office
-./scripts/auto_improve.sh
+AUTO_IMPROVE_ENABLED=true ./scripts/auto_improve.sh
+```
+
+## Dry Run
+
+```bash
+DRY_RUN=1 AUTO_IMPROVE_ENABLED=true ./scripts/auto_improve.sh
+```
+
+## Cron Setup
+
+To run every 30 minutes:
+
+```bash
+# Add to crontab
+*/30 * * * * cd /root/.openclaw/workspace/digital-office && AUTO_IMPROVE_ENABLED=true ./scripts/auto_improve.sh >> /var/log/auto_improve.log 2>&1
 ```
 
 ## Current Status
 
 ```
-AUTO_IMPROVE_ENABLED: false (disabled)
-Learnings: 3 pending
-Last run: never
+AUTO_IMPROVE_ENABLED: false (kill switch)
+Learnings: 1 done, 1 pending
+Last run: auto/improve/LRN-001
 ```
-
-## Troubleshooting
-
-**Nothing happening?**
-- Check `AUTO_IMPROVE_ENABLED=true` is set
-- Run script manually to see output
-
-**Wrong items selected?**
-- Adjust `min_priority` in config
-- Check item priorities in learnings files
-
-**Blocked by denylist?**
-- That's correct! Add paths to allowlist if needed
-
-<!-- Auto-improvement: LRN-001 -->

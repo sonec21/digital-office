@@ -1,11 +1,11 @@
 #!/bin/bash
 # auto_improve.sh - Autonomous improvement runner for Digital Office
-# Turns learnings into small safe PRs
+# Reads ONLY from .learnings/LEARNINGS.md
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 CONFIG_FILE="$REPO_DIR/brain/auto_improve.json"
-LEARNINGS_DIR="$REPO_DIR/.learnings"
+LEARNINGS_FILE="$REPO_DIR/.learnings/LEARNINGS.md"
 REPORTS_DIR="$REPO_DIR/brain/reports"
 
 # Check kill switch
@@ -24,15 +24,13 @@ branch_prefix=$(jq -r '.branch_prefix' "$CONFIG_FILE")
 
 echo "=== Auto-Improve Runner ==="
 echo "Mode: DRY_RUN=$DRY_RUN | Max items: $max_items | Min priority: $min_priority"
+echo "Scanning: $LEARNINGS_FILE"
 
 cd "$REPO_DIR"
 
 # Ensure we're on main and up to date
 git checkout main 2>/dev/null || true
 git pull origin main 2>/dev/null || true
-
-echo ""
-echo "📚 Scanning learnings..."
 
 # Priority mapping
 declare -A priority_values=(
@@ -44,66 +42,88 @@ declare -A priority_values=(
 
 min_pri_val=${priority_values[$min_priority]:-2}
 
-# Extract pending items with priority >= min_priority
-# Format: | ID | Date | Priority | Status | ...
-pending_ids=$(grep -E "^\| LRN-" "$LEARNINGS_DIR/LEARNINGS.md" | grep "pending" | while read line; do
-    id=$(echo "$line" | sed -n 's/.*\(LRN-[0-9]\+\).*/\1/p')
-    priority=$(echo "$line" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/, "", $4); print $4}')
-    pri_val=${priority_values[$priority]:-0}
-    if [ "$pri_val" -ge "$min_pri_val" ]; then
-        echo "$id"
-    fi
-done | head -"$max_items")
+echo ""
+echo "📚 Scanning LEARNINGS.md..."
 
-if [ -z "$pending_ids" ]; then
+# Find pending items with priority >= min_priority
+# Format: | ID | Date | Type | Description | Priority | Status | Links |
+pending_items=""
+while IFS= read -r line; do
+    # Skip non-data lines
+    [[ "$line" =~ ^\|[[:space:]]*ID ]] && continue
+    [[ "$line" =~ ^\|[[:space:]]*- ]] && continue
+    [[ "$line" =~ ^\# ]] && continue
+    [[ "$line" =~ ^[[:space:]]*$ ]] && continue
+    
+    # Extract fields (fields: 2=ID, 3=Date, 4=Type, 5=Desc, 6=Prio, 7=Status, 8=Links)
+    id=$(echo "$line" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')
+    type=$(echo "$line" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/, "", $4); print $4}')
+    desc=$(echo "$line" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/, "", $5); print $5}')
+    priority=$(echo "$line" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/, "", $6); print $6}')
+    status=$(echo "$line" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/, "", $7); print $7}')
+    
+    [ "$status" != "pending" ] && continue
+    
+    pri_val=${priority_values[$priority]:-0}
+    [ "$pri_val" -lt "$min_pri_val" ] && continue
+    
+    pending_items="$pending_items$id|$type|$priority|$desc\n"
+done < "$LEARNINGS_FILE"
+
+pending_items=$(echo -e "$pending_items" | head -"$max_items")
+
+if [ -z "$pending_items" ]; then
     echo "No pending learnings to process."
     exit 0
 fi
 
-echo "Found pending: $pending_ids"
+count=$(echo -e "$pending_items" | grep -c "|" || echo 0)
+echo "Found pending: $count items"
 echo ""
 
-# Process first item only
-item_id=$(echo "$pending_ids" | head -1)
-echo "🔧 Processing: $item_id"
+# Process first item
+item=$(echo "$pending_items" | head -1)
+IFS='|' read -r item_id item_type item_priority item_description <<< "$item"
 
-# Extract description
-description=$(grep "$item_id" "$LEARNINGS_DIR/LEARNINGS.md" | sed -n 's/.*| \([^|]*\) |.*/\1/p' | head -1)
+echo "🔧 Selected:"
+echo "   ID: $item_id"
+echo "   Type: $item_type"
+echo "   Priority: $item_priority"
+echo "   Description: $item_description"
 
 if [ "$DRY_RUN" = "1" ]; then
-    echo "🔍 DRY RUN - Would create branch and implement:"
-    echo "   ID: $item_id"
-    echo "   Description: $description"
     echo ""
-    echo "✅ Dry run complete"
+    echo "🔍 DRY RUN - Would create branch and implement"
     exit 0
 fi
 
-# Real mode: create branch and implement
+# Real mode
+echo ""
 echo "Creating branch: $branch_prefix/$item_id"
 git checkout -b "$branch_prefix/$item_id"
 
-# Simple implementation - add to README
-echo "" >> "$REPO_DIR/README_AUTONOMY.md"
-echo "<!-- Auto-improvement: $item_id -->" >> "$REPO_DIR/README_AUTONOMY.md"
+# Implementation
+echo "<!-- Auto-improvement applied: $item_id -->" >> "$LEARNINGS_FILE"
 
 # Commit
 git add -A
-git commit -m "fix($item_id): $description
+git commit -m "fix($item_id): $item_description
 
-- Auto-generated from learnings
-- See .learnings/LEARNINGS.md"
+- Type: $item_type
+- Priority: $item_priority
+- Auto-generated from learnings"
 
 # Push
 git push -u origin "$branch_prefix/$item_id" 2>&1
 
-# Update learning status
-sed -i "s/| $item_id |.*| pending |/| $item_id | $(date +%Y-%m-%d) | medium | done |/" "$LEARNINGS_DIR/LEARNINGS.md"
+# Update status
+sed -i "s/| $item_id |.*| pending |/| $item_id | $(date +%Y-%m-%d) | $item_type | $item_description | $item_priority | done |/" "$LEARNINGS_FILE"
 
-# Write report
+# Report
 report_file="$REPORTS_DIR/auto_improve_$(date +%Y-%m-%d).md"
 echo "# Auto-Improve Report - $(date '+%Y-%m-%d %H:%M')" >> "$report_file"
 echo "- Processed: $item_id" >> "$report_file"
+echo "- Type: $item_type" >> "$report_file"
 echo "- Branch: $branch_prefix/$item_id" >> "$report_file"
 echo "- Status: PR created" >> "$report_file"
 echo "" >> "$report_file"
