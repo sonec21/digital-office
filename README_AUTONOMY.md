@@ -121,3 +121,5 @@ Last run: never
 
 **Blocked by denylist?**
 - That's correct! Add paths to allowlist if needed
+
+<!-- Auto-improvement: LRN-001 -->

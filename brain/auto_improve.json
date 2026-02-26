@@ -1,22 +1,24 @@
 {
-  "enabled": false,
+  "enabled": true,
   "interval_minutes": 30,
-  "max_items_per_run": 3,
+  "max_items_per_run": 1,
   "min_priority": "medium",
-  "branch_prefix": "auto/fix",
+  "branch_prefix": "auto/improve",
+  "auto_merge": false,
+  "kill_switch_env": "AUTO_IMPROVE_ENABLED",
   "allowlist_paths": [
     "src/app/office/",
-    "brain/seeds/",
-    "README_OFFICE.md"
+    "brain/",
+    "README_OFFICE.md",
+    ".learnings/"
   ],
   "denylist_paths": [
     ".env",
     "caddy",
-    "deploy",
     "infra",
+    "deploy",
+    "systemd",
     "auth",
     "secrets"
-  ],
-  "auto_merge": false,
-  "kill_switch_env": "AUTO_IMPROVE_ENABLED"
+  ]
 }
