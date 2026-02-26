@@ -26,7 +26,7 @@ interface Summary {
   inbox: {
     approvals: { id: string; title: string; risk: string; requested_by: string; created_at: string }[];
     stalled: { id: string; title: string; reason: string; last_activity_at: string }[];
-    errors: { id: string; title: string; severity: string; created_at: string }[];
+    errors: { id: string; title: string; severity: string; source?: string; created_at: string }[];
   };
   activity: { at: string; actor: string; action: string; summary: string }[];
 }
@@ -75,8 +75,8 @@ export default function Dashboard() {
 
   const kpiCards = [
     { label: 'Leads Today', value: kpis.new_leads_today, sub: `+${kpis.new_leads_7d} this week`, icon: Target, color: 'blue' },
-    { label: 'Pipeline Value', value: formatCurrency(kpis.pipeline_value_open), sub: 'Open deals', icon: GitMerge, color: 'violet' },
-    { label: 'Revenue (30d)', value: formatCurrency(kpis.revenue_won_30d), sub: 'Won deals', icon: DollarSign, color: 'emerald' },
+    { label: 'Pipeline Value', value: formatCurrency(kpis.pipeline_value_open ?? 0), sub: 'Open deals', icon: GitMerge, color: 'violet' },
+    { label: 'Revenue (30d)', value: formatCurrency(kpis.revenue_won_30d ?? 0), sub: 'Won deals', icon: DollarSign, color: 'emerald' },
     { label: 'Projects Active', value: kpis.projects_in_progress, sub: 'In progress', icon: FolderKanban, color: 'amber' },
     { label: 'Tasks Done Today', value: kpis.tasks_done_today, sub: 'Completed', icon: CheckSquare, color: 'slate' },
   ];
@@ -128,7 +128,7 @@ export default function Dashboard() {
                 </div>
                 <div className="text-right">
                   <span className="text-sm font-medium text-slate-900">{stage.count}</span>
-                  <span className="text-xs text-slate-500 ml-2">{formatCurrency(stage.value)}</span>
+                  <span className="text-xs text-slate-500 ml-2">{formatCurrency(stage.value ?? 0)}</span>
                 </div>
               </div>
             ))}

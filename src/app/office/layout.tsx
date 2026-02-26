@@ -3,20 +3,25 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
+import { 
+  LayoutDashboard, Users, GitMerge, FolderKanban, CheckSquare,
+  Zap, Calendar, Activity, UsersRound, MessagesSquare,
+  GraduationCap, BarChart3
+} from 'lucide-react';
 
 const navItems = [
-  { href: '/office', label: 'Dashboard', icon: '📊' },
-  { href: '/office/leads', label: 'Leads', icon: '🎯' },
-  { href: '/office/pipeline', label: 'Pipeline', icon: '🔄' },
-  { href: '/office/projects', label: 'Projects', icon: '📁' },
-  { href: '/office/tasks', label: 'Tasks', icon: '📋' },
-  { href: '/office/automations', label: 'Automations', icon: '⚡' },
-  { href: '/office/calendar', label: 'Calendar', icon: '📅' },
-  { href: '/office/activity', label: 'Activity', icon: '👀' },
-  { href: '/office/team', label: 'Team', icon: '👥' },
-  { href: '/office/conversations', label: 'Conversations', icon: '💬' },
-  { href: '/office/training', label: 'Training', icon: '📚' },
-  { href: '/office/reports', label: 'Reports', icon: '📈' },
+  { href: '/office', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/office/leads', label: 'Leads', icon: Users },
+  { href: '/office/pipeline', label: 'Pipeline', icon: GitMerge },
+  { href: '/office/projects', label: 'Projects', icon: FolderKanban },
+  { href: '/office/tasks', label: 'Tasks', icon: CheckSquare },
+  { href: '/office/automations', label: 'Automations', icon: Zap },
+  { href: '/office/calendar', label: 'Calendar', icon: Calendar },
+  { href: '/office/activity', label: 'Activity', icon: Activity },
+  { href: '/office/team', label: 'Team', icon: UsersRound },
+  { href: '/office/conversations', label: 'Conversations', icon: MessagesSquare },
+  { href: '/office/training', label: 'Training', icon: GraduationCap },
+  { href: '/office/reports', label: 'Reports', icon: BarChart3 },
 ];
 
 export default function OfficeLayout({ children }: { children: ReactNode }) {
@@ -49,7 +54,7 @@ export default function OfficeLayout({ children }: { children: ReactNode }) {
                         : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
                     }`}
                   >
-                    <span className="text-base flex-shrink-0 w-5 text-center">{item.icon}</span>
+                  <item.icon className="h-4 w-4 flex-shrink-0" />
                     <span className="truncate">{item.label}</span>
                   </Link>
                 </li>
